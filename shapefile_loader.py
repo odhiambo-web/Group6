@@ -181,19 +181,30 @@ class ShapefileLoader:
 
 
     def run(self):
-        """Run method that performs all the real work"""
+        """Run method that identifies counties and display"""
 
-        # Create the dialog with elements (after translation) and keep reference
-        # Only create GUI ONCE in callback, so that it will only load when the plugin is started
+       # Create the dialog with elements (after translation) and keep reference
         if self.first_start == True:
             self.first_start = False
-            self.dlg = ShapefileLoaderDialog()
+            self.dlg = shapefile_loaderDialog()
+        self.dlg.label.setText("")
+        layer = iface.activeLayer()
+        name1 =""
+        #cc1 = []
+        #for i in range(0, 47):
+        feat = layer.getFeature(19)
+        name1 = feat['NAME OF LYR']
+    
+            
+        message = "YOU ARE FROM {} ".format(name1)
+        self.dlg.label.setText(message) 
 
         # show the dialog
         self.dlg.show()
         # Run the dialog event loop
         result = self.dlg.exec_()
         # See if OK was pressed
+
         if result:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
